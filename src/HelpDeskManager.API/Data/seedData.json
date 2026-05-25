@@ -1,0 +1,210 @@
+{
+  "users": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+      "email": "admin@test.com",
+      "firstName": "System",
+      "lastName": "Administrator",
+      "documentType": 1,
+      "documentNumber": "1000000000",
+      "password": "Pa$$w0rd",
+      "role": "Admin"
+    },
+    {
+      "id": "b2c3d4e5-f678-9012-3456-789abcdef012",
+      "email": "agent@test.com",
+      "firstName": "Support",
+      "lastName": "Agent",
+      "documentType": 1,
+      "documentNumber": "1000000001",
+      "password": "Pa$$w0rd",
+      "role": "Agent"
+    },
+    {
+      "id": "c3d4e5f6-7890-1234-5678-9abcdef01235",
+      "email": "reader@test.com",
+      "firstName": "Support",
+      "lastName": "Reader",
+      "documentType": 5,
+      "documentNumber": "1000000002",
+      "password": "Pa$$w0rd",
+      "role": "Reader"
+    }
+  ],
+  "customers": [
+    {
+      "id": "c3d4e5f6-7890-1234-5678-9abcdef01234",
+      "documentType": 1,
+      "documentNumber": "987654321",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@test.com",
+      "phoneNumber": "555-0198"
+    },
+    {
+      "id": "c3d4e5f6-7890-1234-5678-9abcdef01235",
+      "documentType": 1,
+      "documentNumber": "123456789",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane.doe@test.com",
+      "phoneNumber": "555-0197"
+    },
+
+    {
+      "id": "c3d4e5f6-7890-1234-5678-9abcdef01236",
+      "documentType": 1,
+      "documentNumber": "147258369",
+      "firstName": "Mike",
+      "lastName": "Doe",
+      "email": "mike.doe@test.com",
+      "phoneNumber": "555-0196"
+    }
+  ],
+  "supportRequests": [
+    {
+      "id": "d4e5f678-9012-3456-7890-abcdef012345",
+      "customerId": "c3d4e5f6-7890-1234-5678-9abcdef01234",
+      "type": 1,
+      "subject": "Login issues on the main portal",
+      "description": "I am unable to login since yesterday. It says invalid credentials but my password is correct.",
+      "status": 1,
+      "comments": [
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0949270",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "Contacting the engineer to look for this issue."
+        }
+      ]
+    },
+    {
+      "id": "d4e5f678-9012-3456-7890-abcdef012346",
+      "customerId": "c3d4e5f6-7890-1234-5678-9abcdef01234",
+      "type": 3,
+      "subject": "Data loss issue",
+      "description": "The data from yesterday's backup is missing. Cannot generate crucial reports",
+      "status": 2,
+      "comments": [
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0853064",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "We are looking into this issue right now."
+        }
+      ]
+    },
+    {
+      "id": "d4e5f678-9012-3456-7890-abcdef012347",
+      "customerId": "c3d4e5f6-7890-1234-5678-9abcdef01235",
+      "type": 3,
+      "subject": "Payment issue",
+      "description": "Payment not processed correctly. Need assistance.",
+      "status": 1,
+      "comments": [
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0836521",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "We are looking into this issue right now."
+        },
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0181567",
+          "userId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+          "message": "This issue needs to be resolved ASAP."
+        }
+      ]
+    },
+
+    {
+      "id": "d4e5f678-9012-3456-7890-abcdef012348",
+      "customerId": "c3d4e5f6-7890-1234-5678-9abcdef01235",
+      "type": 2,
+      "subject": "Printer not working",
+      "description": "The printer is not functioning correctly. Need assistance.",
+      "status": 3,
+      "comments": [
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0728976",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "Contacting the technician to look for this issue."
+        },
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0871047",
+          "userId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+          "message": "This is high priority."
+        },
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0114981",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "The technician is currently investigating the issue."
+        },
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0084112",
+          "userId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+          "message": "Please provide an update on the issue."
+        },
+        {
+          "id": "e5f67890-1234-5678-9012-bcdef0223387",
+          "userId": "b2c3d4e5-f678-9012-3456-789abcdef012",
+          "message": "Issue resolved by the technician."
+        }
+      ]
+    }
+  ],
+  "requestHistories": [
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef1",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012345",
+      "previousStatus": null,
+      "newStatus": 1,
+      "changeNotes": "Request created.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef2",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012346",
+      "previousStatus": null,
+      "newStatus": 1,
+      "changeNotes": "Request created.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef3",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012346",
+      "previousStatus": 1,
+      "newStatus": 2,
+      "changeNotes": "Status updated to Under Review.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef4",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012347",
+      "previousStatus": null,
+      "newStatus": 1,
+      "changeNotes": "Request created.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef5",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012348",
+      "previousStatus": null,
+      "newStatus": 1,
+      "changeNotes": "Request created.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef6",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012348",
+      "previousStatus": 1,
+      "newStatus": 2,
+      "changeNotes": "Status updated to Under Review.",
+      "modifiedByUserId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+    },
+    {
+      "id": "f1a2b3c4-d5e6-7890-1234-56789abcdef7",
+      "supportRequestId": "d4e5f678-9012-3456-7890-abcdef012348",
+      "previousStatus": 2,
+      "newStatus": 3,
+      "changeNotes": "Status updated to Resolved after technician fix.",
+      "modifiedByUserId": "b2c3d4e5-f678-9012-3456-789abcdef012"
+    }
+  ]
+}

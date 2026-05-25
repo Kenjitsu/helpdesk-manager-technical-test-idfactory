@@ -19,4 +19,8 @@
     <ProjectReference Include="..\HelpDeskManager.Core\HelpDeskManager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

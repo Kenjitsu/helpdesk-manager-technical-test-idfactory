@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="src/HelpDeskManager.API/HelpDeskManager.API.csproj" />
+    <Project Path="src/HelpDeskManager.BLL/HelpDeskManager.BLL.csproj" />
+    <Project Path="src/HelpDeskManager.Core/HelpDeskManager.Core.csproj" />
+    <Project Path="src/HelpDeskManager.DAL/HelpDeskManager.DAL.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/HelpDeskManager.API.Tests/HelpDeskManager.API.Tests.csproj" />
+    <Project Path="tests/HelpDeskManager.BLL.Tests/HelpDeskManager.BLL.Tests.csproj" />
+  </Folder>
+</Solution>

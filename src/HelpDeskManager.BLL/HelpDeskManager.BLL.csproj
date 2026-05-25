@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HelpDeskManager.Core\HelpDeskManager.Core.csproj" />
+    <ProjectReference Include="..\HelpDeskManager.DAL\HelpDeskManager.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

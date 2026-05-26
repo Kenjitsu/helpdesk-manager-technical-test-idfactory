@@ -11,4 +11,5 @@ public interface ICustomerRepository
     Task<PaginatedResult<CustomerDto>> GetPagedAsync(int pageNumber, int pageSize);
     void AddAsync(Customer customer);
     void UpdateAsync(Customer customer);
+    void DeleteAsync(Customer customer);
 }

@@ -48,4 +48,9 @@ public class CustomerRepository : ICustomerRepository
     {
         _context.Customers.Update(customer);
     }
+
+    public void DeleteAsync(Customer customer)
+    {
+        _context.Customers.Remove(customer);
+    }
 }

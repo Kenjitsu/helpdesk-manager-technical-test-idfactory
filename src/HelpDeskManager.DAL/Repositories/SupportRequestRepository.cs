@@ -18,17 +18,17 @@ public class SupportRequestRepository : ISupportRequestRepository
         _context = context;
     }
 
-    public void AddAsync(SupportRequest request)
+    public void Add(SupportRequest request)
     {
         _context.SupportRequests.Add(request);
     }
 
-    public void AddCommentAsync(Comment comment)
+    public void AddComment(Comment comment)
     {
         _context.Comments.Add(comment);
     }
 
-    public void AddHistoryRecordAsync(RequestHistory history)
+    public void AddHistoryRecord(RequestHistory history)
     {
         _context.RequestHistories.Add(history);
     }
@@ -67,7 +67,7 @@ public class SupportRequestRepository : ISupportRequestRepository
             .FirstOrDefaultAsync();
     }
 
-    public void UpdateAsync(SupportRequest request)
+    public void Update(SupportRequest request)
     {
         _context.SupportRequests.Update(request);
     }

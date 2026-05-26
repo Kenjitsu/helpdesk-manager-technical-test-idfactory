@@ -1,5 +1,6 @@
 ﻿using HelpDeskManager.Core.DTOs.Customer;
 using HelpDeskManager.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelpDeskManager.API.Controllers;
@@ -13,6 +14,7 @@ public class CustomersController : BaseApiController
         _customerService = customerService;
     }
 
+    [Authorize(Policy = "ReadDataRole")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCustomerById(Guid id)
     {
@@ -24,6 +26,7 @@ public class CustomersController : BaseApiController
         );
     }
 
+    [Authorize(Policy = "ReadDataRole")]
     [HttpGet("document/{documentNumber}")]
     public async Task<IActionResult> GetCustomerByDocumentNumber(string documentNumber)
     {
@@ -35,6 +38,7 @@ public class CustomersController : BaseApiController
         );
     }
 
+    [Authorize(Policy = "ReadDataRole")]
     [HttpGet]
     public async Task<IActionResult> GetCustomers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
@@ -46,6 +50,7 @@ public class CustomersController : BaseApiController
         );
     }
 
+    [Authorize(Policy = "WriteDataRole")]
     [HttpPost]
     public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDto customerDto)
     {
@@ -57,6 +62,7 @@ public class CustomersController : BaseApiController
         );
     }
 
+    [Authorize(Policy = "WriteDataRole")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
     {
@@ -67,6 +73,7 @@ public class CustomersController : BaseApiController
         );
     }
 
+    [Authorize(Policy = "RequireAdminRole")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCustomer(Guid id)
     {

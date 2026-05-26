@@ -9,8 +9,8 @@ public interface ISupportRequestRepository
     Task<SupportRequest?> GetByIdAsync(Guid id);
     Task<SupportRequestDetailsDto?> GetByIdWithDetailsAsync(Guid id);
     Task<PaginatedResult<SupportRequestDetailsDto>> GetByCriteriaAsync(RequestSearchCriteriaDto criteria);
-    void AddAsync(SupportRequest request);
-    void UpdateAsync(SupportRequest request);
-    void AddCommentAsync(Comment comment);
-    void AddHistoryRecordAsync(RequestHistory history);
+    void Add(SupportRequest request);
+    void Update(SupportRequest request);
+    void AddComment(Comment comment);
+    void AddHistoryRecord(RequestHistory history);
 }

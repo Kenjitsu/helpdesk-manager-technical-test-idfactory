@@ -121,13 +121,32 @@ public static class ServiceExtensions
                         var json = JsonSerializer.Serialize(errorResult, jsonOptions);
 
                         await context.Response.WriteAsync(json);
-                    }
+                    },
+
+                    OnForbidden = async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        context.Response.ContentType = "application/json";
+
+                        var result = Result<string>.Failure(
+                            new Error("FORBIDDEN", "You do not have permission to access this resource."),
+                            HttpStatusCode.Forbidden
+                        );
+
+                        var json = JsonSerializer.Serialize(result, new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+                        });
+
+                        await context.Response.WriteAsync(json);
+                    },
                 };
             });
 
         services.AddAuthorizationBuilder()
             .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
             .AddPolicy("WriteDataRole", policy => policy.RequireRole("Admin", "Agent"))
-            .AddPolicy("ReadDataRole", policy => policy.RequireRole("Admin", "Reader, Agent"));
+            .AddPolicy("ReadDataRole", policy => policy.RequireRole("Admin", "Reader", "Agent"));
     }
 }

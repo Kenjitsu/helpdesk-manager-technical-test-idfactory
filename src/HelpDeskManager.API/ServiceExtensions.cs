@@ -1,4 +1,11 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using HelpDeskManager.Core.DTOs.Results;
+using HelpDeskManager.Core.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace HelpDeskManager.API;
 
@@ -59,5 +66,68 @@ public static class ServiceExtensions
             app.MapOpenApi();
 
         }
+    }
+
+    public static void AddJwtApiServices(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.Configure<JwtSettings>(
+            configuration.GetSection("JwtSettings"));
+
+        var jwtSettings = configuration
+            .GetSection("JwtSettings")
+            .Get<JwtSettings>();
+
+        if (jwtSettings == null)
+        {
+            throw new Exception("JwtSettings not configured.");
+        }
+
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters =
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidAudience = jwtSettings.Audience,
+
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = async context =>
+                    {
+                        context.HandleResponse();
+
+                        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        context.Response.ContentType = "application/json";
+
+                        var error = new Error("INVALID_TOKEN", "The token provided has expired or its signature is invalid.");
+                        var errorResult = Result<string>.Failure(error, HttpStatusCode.Unauthorized, "Access denied");
+
+                        var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+                        var json = JsonSerializer.Serialize(errorResult, jsonOptions);
+
+                        await context.Response.WriteAsync(json);
+                    }
+                };
+            });
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
+            .AddPolicy("WriteDataRole", policy => policy.RequireRole("Admin", "Agent"))
+            .AddPolicy("ReadDataRole", policy => policy.RequireRole("Admin", "Reader, Agent"));
     }
 }

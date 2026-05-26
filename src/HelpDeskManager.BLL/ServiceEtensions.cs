@@ -1,15 +1,20 @@
-﻿using HelpDeskManager.DAL;
+﻿using HelpDeskManager.BLL.Services;
+using HelpDeskManager.Core.Interfaces.Services;
+using HelpDeskManager.DAL;
 using HelpDeskManager.DAL.Data.Seeding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CustomerManager.BLL;
+namespace HelpDeskManager.BLL;
 
 public static class ServiceExtensions
 {
     public static IServiceCollection AddBusinessLayerServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDataLayerServices(configuration);
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

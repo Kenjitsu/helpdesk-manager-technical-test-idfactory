@@ -11,11 +11,12 @@ public static class SupportRequestProjections
         return query.Select(sr => new SupportRequestDetailsDto
         {
             Id = sr.Id,
+            CustomerId = sr.CustomerId,
+            CustomerFullName = $"{sr.Customer.FirstName} {sr.Customer.LastName}",
             Type = sr.Type,
             Subject = sr.Subject,
             Description = sr.Description,
             Status = sr.Status,
-            CustomerFullName = $"{sr.Customer.FirstName} {sr.Customer.LastName}",
             CreatedAt = sr.CreatedAt,
 
             Comments = sr.Comments.Select(c => new CommentDto
@@ -24,7 +25,7 @@ public static class SupportRequestProjections
                 UserId = c.UserId,
                 Message = c.Message,
                 CreatedAt = c.CreatedAt
-            }).ToList(),
+            }),
 
             History = sr.History.Select(h => new RequestHistoryDto
             {
@@ -34,7 +35,7 @@ public static class SupportRequestProjections
                 ChangeNotes = h.ChangeNotes,
                 ModifiedByUserId = h.ModifiedByUserId,
                 UpdatedAt = h.UpdatedAt
-            }).ToList()
+            })
         });
     }
 }

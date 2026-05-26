@@ -6,7 +6,6 @@ public class Comment : IAuditableEntity
 {
     public Guid Id { get; set; }
     public Guid SupportRequestId { get; set; }
-
     public string UserId { get; set; } = string.Empty;
 
     public string Message { get; set; } = string.Empty;

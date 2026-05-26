@@ -10,6 +10,7 @@ public static class SupportRequestMapperExtensions
         return new SupportRequestDetailsDto
         {
             Id = supportRequest.Id,
+            CustomerId = supportRequest.CustomerId,
             CustomerFullName = $"{supportRequest.Customer.FirstName} {supportRequest.Customer.LastName}",
             Subject = supportRequest.Subject,
             Description = supportRequest.Description,
@@ -22,7 +23,7 @@ public static class SupportRequestMapperExtensions
                 UserId = c.UserId,
                 Message = c.Message,
                 CreatedAt = c.CreatedAt,
-            }).ToList(),
+            }),
             History = supportRequest.History.Select(h => new RequestHistoryDto
             {
                 Id = h.Id,
@@ -31,11 +32,11 @@ public static class SupportRequestMapperExtensions
                 ChangeNotes = h.ChangeNotes,
                 ModifiedByUserId = h.ModifiedByUserId,
                 UpdatedAt = h.UpdatedAt,
-            }).ToList(),
+            }),
         };
     }
 
-    public static SupportRequest ToSupportRequest(this SupportRequestDetailsDto supportRequestDetailsDto, Customer customer)
+    public static SupportRequest ToSupportRequestEntity(this SupportRequestDetailsDto supportRequestDetailsDto, Customer customer)
     {
         return new SupportRequest
         {
@@ -65,7 +66,7 @@ public static class SupportRequestMapperExtensions
         };
     }
 
-    public static SupportRequest ToSupportRequest(this CreateOrUpdateSupportRequestDto dto, Customer customer)
+    public static SupportRequest ToSupportRequestEntity(this CreateSupportRequestDto dto, Customer customer)
     {
         return new SupportRequest
         {
@@ -75,6 +76,23 @@ public static class SupportRequestMapperExtensions
             Status = dto.Status,
             CustomerId = customer.Id,
             Customer = customer
+        };
+    }
+
+    public static void UpdateSupportRequestEntity(this SupportRequest supportRequest, UpdateSupportRequestDto updateSupportRequestDto)
+    {
+        supportRequest.Subject = updateSupportRequestDto.Subject ?? supportRequest.Subject;
+        supportRequest.Description = updateSupportRequestDto.Description ?? supportRequest.Description;
+        supportRequest.Type = updateSupportRequestDto.Type ?? supportRequest.Type;
+    }
+
+    public static Comment ToCommentEntity(this CreateCommentDto createCommentDto, string authorId)
+    {
+        return new Comment
+        {
+            SupportRequestId = createCommentDto.RequestId,
+            UserId = authorId,
+            Message = createCommentDto.Message,
         };
     }
 }

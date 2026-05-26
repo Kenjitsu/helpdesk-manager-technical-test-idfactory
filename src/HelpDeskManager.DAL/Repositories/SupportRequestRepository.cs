@@ -46,6 +46,12 @@ public class SupportRequestRepository : ISupportRequestRepository
         if (criteria.Type.HasValue)
             query = query.Where(sr => sr.Type == criteria.Type.Value);
 
+        if (criteria.FromDate.HasValue)
+            query = query.Where(sr => sr.CreatedAt >= criteria.FromDate.Value);
+
+        if (criteria.ToDate.HasValue)
+            query = query.Where(sr => sr.CreatedAt <= criteria.ToDate.Value);
+
         query = query.OrderByDescending(sr => sr.CreatedAt);
 
         return await query

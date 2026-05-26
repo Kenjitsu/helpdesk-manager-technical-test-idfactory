@@ -43,7 +43,7 @@ public class CustomerService : ICustomerService
     {
         var pagedCustomers = await _unitOfWork.CustomerRepository.GetPagedAsync(pageNumber, pageSize);
 
-        if (pagedCustomers == null || pagedCustomers.Items.Count == 0)
+        if (pagedCustomers == null)
         {
             return Result<PaginatedResult<CustomerResponseDto>>.Failure(new Error("CUSTOMERS_NOT_FOUND", "No customers found."), HttpStatusCode.NotFound);
         }
@@ -54,7 +54,7 @@ public class CustomerService : ICustomerService
 
     public async Task<Result<CustomerResponseDto>> CreateCustomerAsync(CreateCustomerDto customerDto)
     {
-        var newCustomer = customerDto.ToCustomer();
+        var newCustomer = customerDto.ToCustomerEnitty();
 
         _unitOfWork.CustomerRepository.Add(newCustomer);
 

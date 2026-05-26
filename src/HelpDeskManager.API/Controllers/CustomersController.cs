@@ -22,7 +22,7 @@ public class CustomersController : BaseApiController
 
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -34,7 +34,7 @@ public class CustomersController : BaseApiController
 
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -46,7 +46,7 @@ public class CustomersController : BaseApiController
 
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -58,7 +58,7 @@ public class CustomersController : BaseApiController
 
         return result.Match<IActionResult>(
             onSuccess: success => CreatedAtAction(nameof(GetCustomerById), new { id = success.Data!.Id }, success),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -69,7 +69,7 @@ public class CustomersController : BaseApiController
         var result = await _customerService.UpdateCustomerAsync(id, customerDto);
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -81,7 +81,7 @@ public class CustomersController : BaseApiController
         
         return result.Match<IActionResult>(
             onSuccess: success => NoContent(),
-            onFailure: failure => StatusCode(failure.StatusCode, failure)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 

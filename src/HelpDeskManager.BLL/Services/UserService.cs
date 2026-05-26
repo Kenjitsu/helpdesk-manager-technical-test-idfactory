@@ -20,7 +20,7 @@ public class UserService : IUserService
     {
         var roles = await _unitOfWork.UserRepository.GetRolesAsync();
 
-        if(roles == null || !roles.Any())
+        if(roles == null)
         {
             return Result<IList<string?>>.Failure(new Error("NO_ROLES_FOUND", "No roles found in the system."), HttpStatusCode.NotFound);
         }
@@ -56,7 +56,7 @@ public class UserService : IUserService
     {
         var pagedUsers = await _unitOfWork.UserRepository.GetPagedAsync(pageNumber, pageSize);
 
-        if (pagedUsers == null || pagedUsers.Items.Count == 0)
+        if (pagedUsers == null)
         {
             return Result<PaginatedResult<AppUserDto>>.Failure(new Error("USERS_NOT_FOUND", "No users found."), HttpStatusCode.NotFound);
         }

@@ -19,7 +19,7 @@ public static class CustomerMapperExtensions
         };
     }
 
-    public static Customer ToCustomer(this CreateCustomerDto dto)
+    public static Customer ToCustomerEnitty(this CreateCustomerDto dto)
     {
         return new Customer
         {
@@ -32,7 +32,7 @@ public static class CustomerMapperExtensions
         };
     }
 
-    public static Customer ToCustomer(this CustomerDto dto)
+    public static Customer ToCustomerEntity(this CustomerDto dto)
     {
         var names = dto.CustomerFullName.Split(' ', 2);
         return new Customer

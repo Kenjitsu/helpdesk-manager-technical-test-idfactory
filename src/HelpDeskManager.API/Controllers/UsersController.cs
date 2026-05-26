@@ -22,7 +22,7 @@ public class UsersController : BaseApiController
 
         return result.Match<IActionResult>(
                 onSuccess: success => Ok(success),
-                onFailure: error => NotFound(error)
+                onFailure: error => StatusCode(error.StatusCode, error)
             );
     }
 
@@ -32,7 +32,7 @@ public class UsersController : BaseApiController
         var result = await _userService.GetUserByIdAsync(id);
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => NotFound(error)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -42,7 +42,7 @@ public class UsersController : BaseApiController
         var result = await _userService.GetUserByDocumentNumberAsync(documentNumber);
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => NotFound(error)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
@@ -52,7 +52,7 @@ public class UsersController : BaseApiController
         var result = await _userService.AssignRoleAsync(assignRoleRequest);
         return result.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => StatusCode((int)error.StatusCode, error)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 }

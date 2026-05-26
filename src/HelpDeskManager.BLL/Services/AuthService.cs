@@ -50,7 +50,7 @@ public class AuthService : IAuthService
         {
             var errorMessages = string.Join(", ", Errors);
             return Result<LoginResponseDto>.Failure(
-                new Error("CREATE_USER_FAILED", $"Failed to create userDto: {errorMessages}"));
+                new Error("CREATE_USER_FAILED", $"Failed to create userDto: {errorMessages}"), HttpStatusCode.NotFound);
         }
 
         var token = await _tokenService.CreateToken(userDto);

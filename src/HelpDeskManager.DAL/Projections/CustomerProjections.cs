@@ -19,6 +19,7 @@ public static class CustomerProjections
             SupportRequests = c.SupportRequests.Select(sr => new SupportRequestDetailsDto
             {
                 Id = sr.Id,
+                CustomerId = sr.CustomerId,
                 Type = sr.Type,
                 Subject = sr.Subject,
                 Description = sr.Description,

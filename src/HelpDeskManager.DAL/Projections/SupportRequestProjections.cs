@@ -13,6 +13,7 @@ public static class SupportRequestProjections
             Id = sr.Id,
             Type = sr.Type,
             Subject = sr.Subject,
+            Description = sr.Description,
             Status = sr.Status,
             CustomerFullName = $"{sr.Customer.FirstName} {sr.Customer.LastName}",
             CreatedAt = sr.CreatedAt,

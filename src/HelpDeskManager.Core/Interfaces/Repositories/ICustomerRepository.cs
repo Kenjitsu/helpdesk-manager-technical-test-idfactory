@@ -7,9 +7,9 @@ namespace HelpDeskManager.Core.Interfaces.Repositories;
 public interface ICustomerRepository
 {
     Task<Customer?> GetByIdAsync(Guid id);
-    Task<CustomerDto?> GetByDocumentAsync(string documentNumber);
-    Task<PaginatedResult<CustomerDto>> GetPagedAsync(int pageNumber, int pageSize);
-    void AddAsync(Customer customer);
-    void UpdateAsync(Customer customer);
-    void DeleteAsync(Customer customer);
+    Task<CustomerResponseDto?> GetByDocumentAsync(string documentNumber);
+    Task<PaginatedResult<CustomerResponseDto>> GetPagedAsync(int pageNumber, int pageSize);
+    void Add(Customer customer);
+    void Update(Customer customer);
+    void Delete(Customer customer);
 }

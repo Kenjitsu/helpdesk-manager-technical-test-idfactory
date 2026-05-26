@@ -1,16 +1,15 @@
 ﻿using HelpDeskManager.Core.Enums;
-using System;
+
 namespace HelpDeskManager.Core.DTOs.Support;
 
-public record SupportRequestDetailsDto
+public sealed record CreateOrUpdateSupportRequestDto
 {
-    public required Guid Id { get; init; }
     public required RequestType Type { get; init; }
     public required string Subject { get; init; } = string.Empty;
     public required string Description { get; init; } = string.Empty;
     public required RequestStatus Status { get; init; }
-    public required string CustomerFullName { get; init; } = string.Empty;
-    public required DateTime CreatedAt { get; init  ; }
+    public required string FirstName { get; init; } = string.Empty;
+    public required string LastName { get; init; } = string.Empty;
     public List<CommentDto> Comments { get; init; } = [];
     public List<RequestHistoryDto> History { get; init; } = [];
 }

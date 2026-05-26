@@ -17,16 +17,16 @@ public class CustomerRepository : ICustomerRepository
         _context = context;
     }
 
-    public void AddAsync(Customer customer)
+    public void Add(Customer customer)
     {
         _context.Customers.Add(customer);
     }
 
-    public async Task<CustomerDto?> GetByDocumentAsync(string documentNumber)
+    public async Task<CustomerResponseDto?> GetByDocumentAsync(string documentNumber)
     {
         return await _context.Customers
             .Where(c => c.DocumentNumber == documentNumber)
-            .ProjectToCustomerDto()
+            .ProjectToCustomerResponseDto()
             .FirstOrDefaultAsync();
     }
 
@@ -35,21 +35,21 @@ public class CustomerRepository : ICustomerRepository
         return await _context.Customers.FindAsync(id);
     }
 
-    public async Task<PaginatedResult<CustomerDto>> GetPagedAsync(int pageNumber, int pageSize)
+    public async Task<PaginatedResult<CustomerResponseDto>> GetPagedAsync(int pageNumber, int pageSize)
     {
         return await _context.Customers
             .Include(c => c.SupportRequests)
             .AsNoTracking()
-            .ProjectToCustomerDto()
+            .ProjectToCustomerResponseDto()
             .ToPaginatedResultAsync(pageNumber, pageSize);
     }
 
-    public void UpdateAsync(Customer customer)
+    public void Update(Customer customer)
     {
         _context.Customers.Update(customer);
     }
 
-    public void DeleteAsync(Customer customer)
+    public void Delete(Customer customer)
     {
         _context.Customers.Remove(customer);
     }

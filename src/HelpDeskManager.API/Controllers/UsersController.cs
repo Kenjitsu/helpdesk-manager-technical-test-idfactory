@@ -55,12 +55,4 @@ public class UsersController : BaseApiController
             onFailure: error => StatusCode((int)error.StatusCode, error)
         );
     }
-
-    
-
-    
-
-
-
-
 }

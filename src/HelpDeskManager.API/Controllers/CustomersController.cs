@@ -1,0 +1,82 @@
+﻿using HelpDeskManager.Core.DTOs.Customer;
+using HelpDeskManager.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HelpDeskManager.API.Controllers;
+
+public class CustomersController : BaseApiController
+{
+    private readonly ICustomerService _customerService;
+
+    public CustomersController(ICustomerService customerService)
+    {
+        _customerService = customerService;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetCustomerById(Guid id)
+    {
+        var result = await _customerService.GetCustomerByIdAsync(id);
+
+        return result.Match<IActionResult>(
+            onSuccess: success => Ok(success),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+    [HttpGet("document/{documentNumber}")]
+    public async Task<IActionResult> GetCustomerByDocumentNumber(string documentNumber)
+    {
+        var result = await _customerService.GetCustomerByDocumentNumberAsync(documentNumber);
+
+        return result.Match<IActionResult>(
+            onSuccess: success => Ok(success),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetCustomers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    {
+        var result = await _customerService.GetCustomersAsync(pageNumber, pageSize);
+
+        return result.Match<IActionResult>(
+            onSuccess: success => Ok(success),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDto customerDto)
+    {
+        var result = await _customerService.CreateCustomerAsync(customerDto);
+
+        return result.Match<IActionResult>(
+            onSuccess: success => CreatedAtAction(nameof(GetCustomerById), new { id = success.Data!.Id }, success),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
+    {
+        var result = await _customerService.UpdateCustomerAsync(id, customerDto);
+        return result.Match<IActionResult>(
+            onSuccess: success => Ok(success),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCustomer(Guid id)
+    {
+        var result = await _customerService.DeleteCustomerAsync(id);
+        
+        return result.Match<IActionResult>(
+            onSuccess: success => NoContent(),
+            onFailure: failure => StatusCode(failure.StatusCode, failure)
+        );
+    }
+
+
+}

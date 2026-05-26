@@ -21,10 +21,24 @@ public static class CustomerProjections
                 Id = sr.Id,
                 Type = sr.Type,
                 Subject = sr.Subject,
+                Description = sr.Description,
                 CustomerFullName = $"{c.FirstName} {c.LastName}",
                 Status = sr.Status,
                 CreatedAt = sr.CreatedAt
             }).ToList()
+        });
+    }
+
+    public static IQueryable<CustomerResponseDto> ProjectToCustomerResponseDto(this IQueryable<Customer> query)
+    {
+        return query.Select(c => new CustomerResponseDto
+        {
+            Id = c.Id,
+            DocumentType = c.DocumentType,
+            DocumentNumber = c.DocumentNumber,
+            CustomerFullName = $"{c.FirstName} {c.LastName}",
+            Email = c.Email,
+            PhoneNumber = c.PhoneNumber
         });
     }
 }

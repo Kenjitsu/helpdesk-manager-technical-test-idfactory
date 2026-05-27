@@ -1,10 +1,17 @@
 # HelpDeskManager API
 
-## 1. Descripción General de la Solución
+1. [Descripción General de la Solución](#descripcion-general)
+2. [Decisiones Técnicas Tomadas](#decisiones-tecnicas)
+3. [Cómo Ejecutar el Proyecto](#ejecucion)
+4. [Cómo Probar la Autenticación](#autenticacion)
+5. [Cómo Probar los Flujos Principales](#flujos-principales)
+6. [Próximos Pasos y Mejoras Futuras](#mejoras-futuras)
+
+## 1. Descripción General de la Solución <a id="descripcion-general"></a>
 
 **HelpDeskManager** es una API RESTful diseñada para centralizar y optimizar el flujo de trabajo en la gestión de solicitudes dee diferente indole dentro de lo que se conoce como soporte técnico (tickets). Su objetivo principal es garantizar la trazabilidad completa de cada solicitud, permitiendo un seguimiento detallado y seguro de los cambios de estado durante todo su ciclo de vida, desde su creación hasta su resolución.
 
-## 2. Decisiones Técnicas Tomadas
+## 2. Decisiones Técnicas Tomadas <a id="decisiones-tecnicas"></a>
 
 ### Arquitectura y Patrones de Diseño
 Para el desarrollo de esta solución, se optó por una **Arquitectura N-Capas (N-Tier)**. Esta decisión toma fuerte inspiración de los principios de *Clean Architecture* (separación de responsabilidades e inversión de dependencias), pero se adaptó para no sobre-complicar la implementación, resultando en una base de código escalable, mantenible y fácil de abordar para un MVP.
@@ -62,7 +69,7 @@ Se adoptó un enfoque de testing estructurado, logrando un conjunto inicial de *
 * **Pruebas Unitarias:** Enfocadas en el aislamiento lógico. Validan el correcto comportamiento del generador de tokens, la aplicación de reglas de negocio al transicionar el estado de una solicitud, y garantizan que los errores esperados (ej. credenciales inválidas) devuelvan los objetos correctos.
 * **Pruebas de Integración:** Enfocadas en el ciclo de vida HTTP. Validan de punta a punta que los mecanismos de autenticación y la seguridad por roles (RBAC) bloqueen o permitan el acceso a los endpoints según el perfil del usuario.
 
-## 3. Cómo Ejecutar el Proyecto
+## 3. Cómo Ejecutar el Proyecto <a id="ejecucion"></a>
 
 El ecosistema de la aplicación está diseñado para ser flexible, ofreciendo soporte tanto para una ejecución ágil y aislada mediante contenedores, como para un despliegue nativo directo en la máquina de desarrollo.
 
@@ -134,7 +141,7 @@ Si la ejecución local falla arrojando errores de inicio de sesión o fallas de 
 1.  Asegúrese de que el servicio de SQL Server local se encuentre actualmente en estado "Ejecutándose" en el administrador de servicios de Windows.
 2.  Valide la sintaxis de las barras invertidas en el archivo `appsettings.Development.json`. En cadenas JSON, los nombres de instancias locales con subcarpetas requieren escapar caracteres (ej. usar `Server=localhost\\\\SQLEXPRESS;`).
 
-## 4. Cómo Probar la Autenticación
+## 4. Cómo Probar la Autenticación <a id="autenticacion"></a>
 
 Para facilitar las pruebas de autorización y los flujos de Control de Acceso Basado en Roles (RBAC), la base de datos se inicializa automáticamente con tres usuarios preconfigurados. Cada uno representa un nivel distinto de permisos dentro de la plataforma.
 
@@ -173,7 +180,7 @@ Se ha adjuntado una colección de Postman preconfigurada para agilizar la valida
 * **Manejo de Identificadores (IDs):** Los ejemplos dentro de la colección contienen esquemas base. Al probar endpoints que requieren un `id` específico por parámetro de ruta o en el cuerpo de la petición (ej. actualizar una solicitud), es indispensable reemplazar los IDs de ejemplo por identificadores (GUIDs) válidos. 
 * **¿De dónde obtener los IDs?** Puede utilizar los IDs generados al crear nuevos registros durante sus pruebas, o utilizar los IDs base que se encuentran en la base de datos despues de ejecutar el seed o tambien se encuentran estructurados en el archivo `seedData.json`, ubicado dentro de la carpeta `Data` en el proyecto de la API (`src/HelpDeskManager.API/Data/seedData.json`).
 
-## 5. Cómo Probar los Flujos Principales
+## 5. Cómo Probar los Flujos Principales <a id="flujos-principales"></a>
 
 El núcleo operativo de la API es la gestión de solicitudes de soporte (tickets). El flujo principal garantiza que toda solicitud nazca vinculada a un cliente, evolucione de forma controlada a través de distintos estados y mantenga un registro histórico estricto de cada cambio o comentario añadido.
 
@@ -215,7 +222,7 @@ El cambio de estado es el proceso más crítico y está protegido por reglas de 
 
 > **Nota:** Para un detalle exacto de las rutas, los esquemas JSON (Payloads) y las respuestas de éxito o error, consulte la [colección de Postman](./assets/HelpDesk-net9.postman_collection.json) provista o navegue a través de la interfaz interactiva de **Swagger UI** que se levanta al ejecutar la API.
 
-## 6. Próximos Pasos y Mejoras Futuras
+## 6. Próximos Pasos y Mejoras Futuras <a id="mejoras-futuras"></a>
 
 Este proyecto fue desarrollado como un Producto Mínimo Viable (MVP). Si dispusiera de más tiempo para iterar sobre la solución, enfocaría los esfuerzos en los siguientes frentes para llevar la aplicación a un entorno más maduro y robusto:
 

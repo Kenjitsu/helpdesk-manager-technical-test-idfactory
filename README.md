@@ -1,4 +1,4 @@
-# HelpDeskManager API
+# HelpDeskManager API - Prueba técnica - Ricardo Corredor
 
 1. [Descripción General de la Solución](#descripcion-general)
 2. [Decisiones Técnicas Tomadas](#decisiones-tecnicas)

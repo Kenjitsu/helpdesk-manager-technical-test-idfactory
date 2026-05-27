@@ -4,6 +4,7 @@ using HelpDeskManager.Core.Interfaces;
 using HelpDeskManager.Core.Interfaces.Repositories;
 using HelpDeskManager.Core.Interfaces.Services;
 using HelpDeskManager.DAL.Data.Identity;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net;
 
@@ -24,7 +25,8 @@ public class AuthServiceTests
 
         _mockUnitOfWork.Setup(u => u.UserRepository).Returns(_mockUserRepo.Object);
 
-        _sut = new AuthService(_mockUnitOfWork.Object, _mockTokenService.Object);
+        var mockLogger = new Mock<ILogger<AuthService>>();
+        _sut = new AuthService(_mockUnitOfWork.Object, _mockTokenService.Object, mockLogger.Object);
     }
 
     [Fact]

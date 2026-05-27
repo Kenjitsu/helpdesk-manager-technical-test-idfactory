@@ -4,6 +4,7 @@ using HelpDeskManager.Core.Entities;
 using HelpDeskManager.Core.Enums;
 using HelpDeskManager.Core.Interfaces;
 using HelpDeskManager.Core.Interfaces.Repositories;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Timers;
 
@@ -22,7 +23,8 @@ public class SupportRequestServiceTests
 
         _mockUnitOfWork.Setup(u => u.SupportRequestRepository).Returns(_mockSupportRepo.Object);
 
-        _sut = new SupportRequestService(_mockUnitOfWork.Object);
+        var mockLogger = new Mock<ILogger<SupportRequestService>>();
+        _sut = new SupportRequestService(_mockUnitOfWork.Object, mockLogger.Object);
     }
 
     [Fact]

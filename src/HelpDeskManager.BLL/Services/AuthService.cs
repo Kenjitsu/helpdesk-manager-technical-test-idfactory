@@ -3,6 +3,7 @@ using HelpDeskManager.Core.DTOs.Results;
 using HelpDeskManager.Core.Interfaces;
 using HelpDeskManager.Core.Interfaces.Services;
 using HelpDeskManager.DAL.Mappers;
+using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace HelpDeskManager.BLL.Services;
@@ -12,11 +13,13 @@ public class AuthService : IAuthService
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly ITokenService _tokenService;
+    private readonly ILogger<AuthService> _logger;
 
-    public AuthService(IUnitOfWork unitOfWork, ITokenService tokenService)
+    public AuthService(IUnitOfWork unitOfWork, ITokenService tokenService, ILogger<AuthService> logger)
     {
         _unitOfWork = unitOfWork;
         _tokenService = tokenService;
+        _logger = logger;
     }
 
 
@@ -27,6 +30,7 @@ public class AuthService : IAuthService
 
         if (!IsValid || User == null)
         {
+            _logger.LogWarning("Failed login attempt for email: {Email}", loginRequestDto.Email);
             return Result<LoginResponseDto>.Failure(
                 new Error("INVALID_CREDENTIALS", "Invalid email or password."),
                 HttpStatusCode.Unauthorized
@@ -49,6 +53,7 @@ public class AuthService : IAuthService
         if (!Success)
         {
             var errorMessages = string.Join(", ", Errors);
+            _logger.LogError("Failed to create user: {Errors}", errorMessages);
             return Result<LoginResponseDto>.Failure(
                 new Error("CREATE_USER_FAILED", $"Failed to create userDto: {errorMessages}"), HttpStatusCode.NotFound);
         }

@@ -26,7 +26,7 @@ public class AuthController : BaseApiController
 
         return userLogin.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => StatusCode(error.StatusCode, error)
+            onFailure: error => Unauthorized(error)
         );
     }
 
@@ -40,7 +40,7 @@ public class AuthController : BaseApiController
 
         return userRegister.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => StatusCode(error.StatusCode, error)
+            onFailure: error => Unauthorized(error)
         );
     }
 }

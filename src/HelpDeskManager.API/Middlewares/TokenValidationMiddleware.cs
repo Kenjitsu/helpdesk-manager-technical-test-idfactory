@@ -8,10 +8,12 @@ namespace HelpDeskManager.API.Middlewares;
 public class TokenValidationMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<TokenValidationMiddleware> _logger;
 
-    public TokenValidationMiddleware(RequestDelegate next)
+    public TokenValidationMiddleware(RequestDelegate next, ILogger<TokenValidationMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task Invoke(HttpContext context)
@@ -29,6 +31,7 @@ public class TokenValidationMiddleware
 
                 if (string.IsNullOrWhiteSpace(authHeader) || !authHeader.StartsWith("Bearer "))
                 {
+                    _logger.LogWarning("Unauthorized access attempt to {Path} - Missing or invalid Authorization header.", context.Request.Path);
                     await HandleUnauthorizedAsync(context, "MISSING_TOKEN", "The access token is required and was not provided or the format is incorrect.");
                     return;
                 }

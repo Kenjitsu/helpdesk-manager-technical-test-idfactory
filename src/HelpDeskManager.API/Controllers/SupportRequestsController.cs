@@ -1,5 +1,4 @@
-﻿using HelpDeskManager.Core.DTOs.Customer;
-using HelpDeskManager.Core.DTOs.Results;
+﻿using HelpDeskManager.Core.DTOs.Results;
 using HelpDeskManager.Core.DTOs.Support;
 using HelpDeskManager.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;

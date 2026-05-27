@@ -1,4 +1,5 @@
 ﻿using HelpDeskManager.Core.DTOs.Account;
+using HelpDeskManager.Core.DTOs.Results;
 using HelpDeskManager.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,25 +18,29 @@ public class AuthController : BaseApiController
 
     [AllowAnonymous]
     [HttpPost("login")]
+    [ProducesResponseType(typeof(Result<LoginResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<LoginResponseDto>), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
     {
         var userLogin = await _authService.LoginAsync(loginRequest);
 
         return userLogin.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => Unauthorized(error)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 
     [AllowAnonymous]
     [HttpPost("register")]
+    [ProducesResponseType(typeof(Result<LoginResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<LoginResponseDto>), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequest)
     {
         var userRegister = await _authService.RegisterAsync(registerRequest);
 
         return userRegister.Match<IActionResult>(
             onSuccess: success => Ok(success),
-            onFailure: error => BadRequest(error)
+            onFailure: error => StatusCode(error.StatusCode, error)
         );
     }
 }

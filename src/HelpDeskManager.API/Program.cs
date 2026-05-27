@@ -1,17 +1,10 @@
 using HelpDeskManager.API;
 using HelpDeskManager.API.Middlewares;
 using HelpDeskManager.BLL;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    }); ;
-
+builder.Services.AddConfiguredControllers();
 builder.Services.AddOpenApiServices();
 builder.Services.AddJwtApiServices(builder.Configuration);
 
@@ -37,3 +30,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+public partial class Program { }

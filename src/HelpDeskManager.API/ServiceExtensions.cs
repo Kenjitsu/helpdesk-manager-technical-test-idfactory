@@ -6,14 +6,29 @@ using Microsoft.OpenApi.Models;
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace HelpDeskManager.API;
 
 public static class ServiceExtensions
 {
+
+    public static IServiceCollection AddConfiguredControllers(this IServiceCollection services)
+    {
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
+
+        return services;
+    }
+
     public static void AddOpenApiServices(this IServiceCollection services)
     {
         services.AddOpenApi();
+        services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo

@@ -48,7 +48,7 @@ public class CustomerService : ICustomerService
             return Result<PaginatedResult<CustomerResponseDto>>.Failure(new Error("CUSTOMERS_NOT_FOUND", "No customers found."), HttpStatusCode.NotFound);
         }
 
-        return Result<PaginatedResult<CustomerResponseDto>>.Success(pagedCustomers, HttpStatusCode.Created);
+        return Result<PaginatedResult<CustomerResponseDto>>.Success(pagedCustomers);
     }
 
 

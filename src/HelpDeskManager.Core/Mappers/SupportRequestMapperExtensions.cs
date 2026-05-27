@@ -66,7 +66,7 @@ public static class SupportRequestMapperExtensions
         };
     }
 
-    public static SupportRequest ToSupportRequestEntity(this CreateSupportRequestDto dto, Customer customer)
+    public static SupportRequest ToSupportRequestEntity(this CreateSupportRequestDto dto, Customer customer, string creatorId)
     {
         return new SupportRequest
         {
@@ -75,7 +75,17 @@ public static class SupportRequestMapperExtensions
             Type = dto.Type,
             Status = dto.Status,
             CustomerId = customer.Id,
-            Customer = customer
+            Customer = customer,
+            History =
+            [
+                new RequestHistory
+                {
+                    PreviousStatus = null,
+                    NewStatus = dto.Status,
+                    ChangeNotes = "Support request created",
+                    ModifiedByUserId = creatorId,
+                }
+            ],
         };
     }
 

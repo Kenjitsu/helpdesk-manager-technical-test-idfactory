@@ -6,7 +6,7 @@ namespace HelpDeskManager.Core.Interfaces.Services;
 
 public interface ISupportRequestService
 {
-    Task<Result<Guid>> CreateRequestAsync(CreateSupportRequestDto createSupportRequestDto);
+    Task<Result<Guid>> CreateRequestAsync(CreateSupportRequestDto createSupportRequestDto, string creatorId);
     Task<Result<string>> ChangeStatusAsync(Guid requestId, string modifiedByUserId, ChangeSupportRequestStatusDto changeSupportRequestStatusDto);
     Task<Result<PaginatedResult<SupportRequestDetailsDto>>> GetRequestsByCriteriaAsync(RequestSearchCriteriaDto searchCriteria);
     Task<Result<SupportRequestDetailsDto>> GetRequestByIdAsync(Guid requestId);

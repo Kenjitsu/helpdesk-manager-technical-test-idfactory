@@ -1,4 +1,5 @@
 ﻿using HelpDeskManager.Core.DTOs.Customer;
+using HelpDeskManager.Core.DTOs.Results;
 using HelpDeskManager.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,9 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "ReadDataRole")]
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Result<CustomerDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetCustomerById(Guid id)
     {
         var result = await _customerService.GetCustomerByIdAsync(id);
@@ -28,6 +32,9 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "ReadDataRole")]
     [HttpGet("document/{documentNumber}")]
+    [ProducesResponseType(typeof(Result<CustomerDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<CustomerDto>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetCustomerByDocumentNumber(string documentNumber)
     {
         var result = await _customerService.GetCustomerByDocumentNumberAsync(documentNumber);
@@ -40,6 +47,9 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "ReadDataRole")]
     [HttpGet]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetCustomers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
         var result = await _customerService.GetCustomersAsync(pageNumber, pageSize);
@@ -52,6 +62,9 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "WriteDataRole")]
     [HttpPost]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDto customerDto)
     {
         var result = await _customerService.CreateCustomerAsync(customerDto);
@@ -64,6 +77,10 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "WriteDataRole")]
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<CustomerResponseDto>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
     {
         var result = await _customerService.UpdateCustomerAsync(id, customerDto);
@@ -75,6 +92,9 @@ public class CustomersController : BaseApiController
 
     [Authorize(Policy = "RequireAdminRole")]
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> DeleteCustomer(Guid id)
     {
         var result = await _customerService.DeleteCustomerAsync(id);

@@ -48,8 +48,16 @@ public class SupportRequestService : ISupportRequestService
         if (request == null)
             return Result<string>.Failure(new Error("SUPPORT_REQUEST_NOT_FOUND", "Support request not found."), HttpStatusCode.NotFound);
 
+        if (request.Status == RequestStatus.Closed)
+            return Result<string>.Failure(new Error("INVALID_REQUEST", "Cannot change status of a closed request."), HttpStatusCode.BadRequest);
+
+
         if (request.Status == changeSupportRequestStatusDto.NewStatus)
             return Result<string>.Failure(new Error("INVALID_STATUS", "The request is already in the specified status."), HttpStatusCode.BadRequest);
+
+        if (changeSupportRequestStatusDto.NewStatus == RequestStatus.Closed && request.Status != RequestStatus.Resolved)
+            return Result<string>.Failure(
+                new Error("INVALID_STATUS_TRANSITION", "A request must be resolved before it can be closed."), HttpStatusCode.BadRequest);
 
         var previousStatus = request.Status;
 
@@ -68,7 +76,7 @@ public class SupportRequestService : ISupportRequestService
         return Result<string>.Success("Status changed successfully.");
     }
 
-    public async Task<Result<Guid>> CreateRequestAsync(CreateSupportRequestDto createSupportRequestDto)
+    public async Task<Result<Guid>> CreateRequestAsync(CreateSupportRequestDto createSupportRequestDto, string creatorId)
     {
         var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(createSupportRequestDto.CustomerId);
 
@@ -77,7 +85,7 @@ public class SupportRequestService : ISupportRequestService
             return Result<Guid>.Failure(new Error("CUSTOMER_NOT_FOUND", "Cannot create request, customer not found."), HttpStatusCode.NotFound);
         }
 
-        var supportRequest = createSupportRequestDto.ToSupportRequestEntity(customer);
+        var supportRequest = createSupportRequestDto.ToSupportRequestEntity(customer, creatorId);
 
         _unitOfWork.SupportRequestRepository.Add(supportRequest);
 

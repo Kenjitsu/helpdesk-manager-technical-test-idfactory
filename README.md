@@ -106,7 +106,7 @@ Deberá actualizar la cadena de conexión para indicarle a la API dónde se encu
 > * Reemplace `TU_SERVIDOR_LOCAL` por el nombre real de su instancia física (por ejemplo, `localhost\\SQLEXPRESS` o simplemente `.` si es una instancia por defecto).
 > * El ejemplo anterior utiliza `Trusted_Connection=True` (Autenticación de Windows). Si su motor local utiliza autenticación por usuario y contraseña, cambie ese fragmento por: `User Id=sa;Password=TuPasswordSeguro;`.
 
-Adicionnalmente, [la colección de postman](./assets/HelpDesk-net9.postman_collection) viene configurada para apuntar a la URL local con el puerto de docker (`http://localhost:8080`). Al ejecutarlo de manera local por favor cambie la variable de entorno de la colección a la siguiente url. (`https://localhost:7280`) si la ejecuta por https o (`http://localhost:5103`) si la ejecuta por http.
+Adicionnalmente, [la colección de postman](./assets/HelpDesk-net9.postman_collection.json) viene configurada para apuntar a la URL local con el puerto de docker (`http://localhost:8080`). Al ejecutarlo de manera local por favor cambie la variable de entorno de la colección a la siguiente url. (`https://localhost:7280`) si la ejecuta por https o (`http://localhost:5103`) si la ejecuta por http.
 
 #### 2. Comandos para iniciar la aplicación
 Navegue en su terminal hasta el directorio del proyecto de presentación (`src/HelpDeskManager.API`) y ejecute cualquiera de las siguientes alternativas:
@@ -167,7 +167,7 @@ Para obtener un token de acceso, debe realizar una petición `POST` al endpoint 
 
 ### Pruebas Automatizadas con Postman
 
-Se ha adjuntado una colección de Postman preconfigurada para agilizar la validación de la API. [Esta colección](./assets/HelpDesk-net9.postman_collection) incluye ejemplos estructurados y scripts de automatización para mejorar la experiencia de prueba:
+Se ha adjuntado una colección de Postman preconfigurada para agilizar la validación de la API. [Esta colección](./assets/HelpDesk-net9.postman_collection.json) incluye ejemplos estructurados y scripts de automatización para mejorar la experiencia de prueba:
 
 * **Inyección Automática del Token:** La colección está diseñada para que, con solo ejecutar exitosamente el endpoint de Login una vez, el script de pruebas de Postman capture el token JWT de la respuesta y lo asigne automáticamente como *Bearer Token* a todas las peticiones posteriores. No es necesario copiar y pegar el token manualmente entre peticiones.
 * **Manejo de Identificadores (IDs):** Los ejemplos dentro de la colección contienen esquemas base. Al probar endpoints que requieren un `id` específico por parámetro de ruta o en el cuerpo de la petición (ej. actualizar una solicitud), es indispensable reemplazar los IDs de ejemplo por identificadores (GUIDs) válidos. 
@@ -213,7 +213,7 @@ El cambio de estado es el proceso más crítico y está protegido por reglas de 
     * El sistema rechazará la petición si se intenta asignar el mismo estado que la solicitud ya posee.
     * No se puede forzar el cierre (`Closed`) de una solicitud si su estado inmediatamente anterior no era resuelto (`Resolved`).
 
-> **Nota:** Para un detalle exacto de las rutas, los esquemas JSON (Payloads) y las respuestas de éxito o error, consulte la [colección de Postman](./assets/HelpDesk-net9.postman_collection) provista o navegue a través de la interfaz interactiva de **Swagger UI** que se levanta al ejecutar la API.
+> **Nota:** Para un detalle exacto de las rutas, los esquemas JSON (Payloads) y las respuestas de éxito o error, consulte la [colección de Postman](./assets/HelpDesk-net9.postman_collection.json) provista o navegue a través de la interfaz interactiva de **Swagger UI** que se levanta al ejecutar la API.
 
 ## 6. Próximos Pasos y Mejoras Futuras
 

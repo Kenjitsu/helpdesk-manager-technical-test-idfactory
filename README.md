@@ -18,9 +18,9 @@ La solución está modularizada en distintos proyectos para garantizar un estric
 📁 HelpDeskManager
  ├── 📁 src
  │   ├── 📁 HelpDeskManager.API    # (Presentación: Controladores, Middlewares, Program.cs)
- │   ├── 📁 HelpDeskManager.BLL    # (Lógica de Negocio: Servicios, Validaciones y DTOs)
- │   ├── 📁 HelpDeskManager.Core   # (Dominio: Entidades POCO, Enums e Interfaces)
- │   └── 📁 HelpDeskManager.DAL    # (Acceso a Datos: DbContext, Migrations y Repositorios)
+ │   ├── 📁 HelpDeskManager.BLL    # (Lógica de Negocio: Servicios, Validaciones)
+ │   ├── 📁 HelpDeskManager.Core   # (Dominio: Entidades POCO, DTOs, Mappers Enums e Interfaces)
+ │   └── 📁 HelpDeskManager.DAL    # (Acceso a Datos: DbContext, Migrations, Repositorios y UnitOfWork)
  ├── 📁 tests
  │   ├── 📁 HelpDeskManager.API.Tests
  │   └── 📁 HelpDeskManager.BLL.Tests
